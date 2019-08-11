@@ -1,0 +1,31 @@
+{
+  "name": "koa-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "ava",
+    "start": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^15.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.7.0",
+    "koa-better-router": "^2.1.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-helmet": "^4.2.0",
+    "koa-jwt": "^3.6.0",
+    "password-hash": "^1.2.2",
+    "sequelize": "^5.13.1",
+    "sqlite3": "^4.0.9"
+  },
+  "devDependencies": {
+    "ava": "^2.2.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "dotenv": "^8.0.0"
+  }
+}
