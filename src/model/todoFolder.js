@@ -12,7 +12,13 @@ const TodoFolder = sq.define(
     },
     title: {
       type: Sequelize.TEXT,
-      unique: true
+      unique: true,
+      validate: {
+        len: {
+          args: [1, 12],
+          msg: "文件夹标题必须是 1 到 12 字符之间"
+        }
+      }
     },
     user_id: {
       type: Sequelize.INTEGER,

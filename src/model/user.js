@@ -13,17 +13,31 @@ User.init(
     },
     username: {
       type: Sequelize.STRING,
-      unique: true
+      unique: true,
+      validate: {
+        len: {
+          args: [4, 12],
+          msg: "用户名长度必须在 4 到 12 个字符之间"
+        }
+      }
     },
     email: {
       type: Sequelize.STRING,
       unique: true,
       validate: {
-        isEmail: true
+        isEmail: {
+          msg: "请检查邮箱格式是否正确"
+        }
       }
     },
     password: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      validate: {
+        len: {
+          args: [6, 12],
+          msg: "密码长度必须在 6 到 12 个字符之间"
+        }
+      }
     }
   },
   {

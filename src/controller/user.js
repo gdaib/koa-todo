@@ -1,7 +1,6 @@
 const { User, ...UserUtil } = require("../model/user");
 const { secret } = require("../config");
 const jwt = require("jsonwebtoken");
-const { loginSchema, UserSchema } = require("../schema");
 
 function exceptPassword(user) {
   user = JSON.parse(JSON.stringify(user));
@@ -11,7 +10,7 @@ function exceptPassword(user) {
 
 module.exports = {
   async register(ctx, next) {
-    const { username, email, password } = UserSchema.validate(ctx.request.body);
+    const { username, email, password } = ctx.request.body;
 
     const user = await UserUtil.createUser({
       username,
@@ -28,7 +27,7 @@ module.exports = {
   },
 
   async login(ctx, next) {
-    const { email, password } = loginSchema.validate(ctx.request.body);
+    const { email, password } = ctx.request.body;
 
     const db_user = await User.findOne({
       where: {

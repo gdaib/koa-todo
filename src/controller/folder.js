@@ -1,11 +1,11 @@
 const { TodoFolder } = require("../model/todoFolder");
 const { Todo } = require("../model/todo");
-const { createTodoSchema, idSchema } = require("../schema");
+const { idSchema } = require("../schema");
 const { Op } = require("sequelize");
 
 module.exports = {
   async create(ctx, next) {
-    const { title } = createTodoSchema.validate(ctx.request.body);
+    const { title } = ctx.request.body;
 
     const folder = await TodoFolder.create({
       user_id: ctx.request.user.id,
@@ -17,7 +17,7 @@ module.exports = {
 
   async edit(ctx, next) {
     const { id } = idSchema.validate(ctx.params);
-    const { title } = createTodoSchema.validate(ctx.request.body);
+    const { title } = ctx.request.body;
 
     let folder = await TodoFolder.findByPk(id);
 

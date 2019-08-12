@@ -11,16 +11,29 @@ const Todo = sq.define(
       autoIncrement: true
     },
     text: {
-      type: Sequelize.TEXT
+      type: Sequelize.TEXT,
+      validate: {
+        len: {
+          args: [1, 12],
+          msg: "任务内容必须是 1 到 12 字符之间"
+        }
+      }
     },
     completed: {
-      type: Sequelize.BOOLEAN
+      type: Sequelize.BOOLEAN,
+      validate: {
+        notEmpty: true,
+        isBoolean: {
+          msg: "completed 字段必须为 boolean 类型"
+        }
+      }
     },
     todo_folder_id: {
       type: Sequelize.INTEGER,
       references: {
         model: TodoFolder,
-        key: "id"
+        key: "id",
+        msg: 'TTTTTT'
       }
     }
   },

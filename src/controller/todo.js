@@ -1,12 +1,10 @@
 const { Todo } = require("../model/todo");
-const { createTodo, editTodo, idSchema } = require("../schema");
+const { idSchema } = require("../schema");
 const { Op } = require("sequelize");
 
 module.exports = {
   async create(ctx, next) {
-    const { todo_folder_id, text, completed } = createTodo.validate(
-      ctx.request.body
-    );
+    const { todo_folder_id, text, completed } = ctx.request.body;
 
     try {
       let todo = await Todo.create({
@@ -20,23 +18,24 @@ module.exports = {
       let message = "系统错误",
         code = 500;
 
-      const { errno } = error.parent;
-
-      if (errno == 19) {
-        message = "文件夹不存在";
-        code = 409;
+      if (error.parent) {
+        const { errno } = error.parent;
+        if (errno == 19) {
+          message = "文件夹不存在";
+          code = 404;
+        }
+        throw new ctx.HttpExceptionError({
+          message,
+          code
+        });
+      } else {
+        throw error;
       }
-      throw new ctx.HttpExceptionError({
-        message,
-        code
-      });
     }
   },
 
   async edit(ctx, next) {
-    const { text = null, completed = null } = editTodo.validate(
-      ctx.request.body
-    );
+    const { text = null, completed = null } = ctx.request.body;
 
     const { id } = idSchema.validate(ctx.params);
 

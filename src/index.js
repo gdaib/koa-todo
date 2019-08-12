@@ -1,11 +1,9 @@
 require("dotenv/config");
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
-const jwt = require("koa-jwt");
 const helmet = require("koa-helmet"); // 处理 sql 注入
 
 const { port, secret } = require("./config");
-
 const { api, router } = require("./router");
 
 const catchError = require("./middleware/catch");
@@ -27,11 +25,6 @@ app.use(
 
 app.use(helmet());
 app.use(bodyParser());
-// app.use(
-//   jwt({ secret }).unless({
-//     path: [/^\/api\/v1\/(login|register)/]
-//   })
-// );
 app.use(router.middleware());
 app.use(api.middleware());
 
