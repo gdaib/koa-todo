@@ -11,7 +11,8 @@ const TodoFolder = sq.define(
       autoIncrement: true
     },
     title: {
-      type: Sequelize.TEXT
+      type: Sequelize.TEXT,
+      unique: true
     },
     user_id: {
       type: Sequelize.INTEGER,

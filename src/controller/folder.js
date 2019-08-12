@@ -1,7 +1,7 @@
 const { TodoFolder } = require("../model/todoFolder");
 const { Todo } = require("../model/todo");
-const { createTodoSchema, idSchema } = require('../schema')
-
+const { createTodoSchema, idSchema } = require("../schema");
+const { Op } = require("sequelize");
 
 module.exports = {
   async create(ctx, next) {
@@ -36,7 +36,6 @@ module.exports = {
     ctx.success("查询成功", folder);
   },
   async delete(ctx, next) {
-
     const { id } = idSchema.validate(ctx.params);
 
     await Todo.destroy({
@@ -52,5 +51,19 @@ module.exports = {
     });
 
     ctx.success("删除成功", true);
+  },
+
+  async getAll(ctx, next) {
+    const { pageSize = 10, page = 1, title = "" } = ctx.request.query;
+
+    const { count: total, rows: list } = await TodoFolder.findAndCountAll({
+      limit: pageSize,
+      offset: (page - 1) * pageSize,
+      where: {
+        title: { [Op.like]: `%${title}%` }
+      }
+    });
+
+    ctx.success("success", { total, list });
   }
 };

@@ -12,10 +12,15 @@ User.init(
       autoIncrement: true
     },
     username: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      unique: true
     },
     email: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      unique: true,
+      validate: {
+        isEmail: true
+      }
     },
     password: {
       type: Sequelize.STRING

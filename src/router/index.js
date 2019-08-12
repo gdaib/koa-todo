@@ -11,12 +11,14 @@ api.post("/register", UserController.register);
 api.post("/login", UserController.login);
 
 
+api.get("/todo", TodoController.getAll);
 api.get("/todo/:id", TodoController.show);
 api.post("/todo", TodoController.create);
 api.put("/todo/:id", TodoController.edit);
 api.del("/todo/:id", TodoController.delete);
 
 
+api.get("/folder", FolderController.getAll);
 api.get("/folder/:id", FolderController.show);
 api.post("/folder", FolderController.create);
 api.put("/folder/:id", FolderController.edit);
