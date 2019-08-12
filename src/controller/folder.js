@@ -1,9 +1,11 @@
 const { TodoFolder } = require("../model/todoFolder");
 const { Todo } = require("../model/todo");
+const { createTodoSchema, idSchema } = require('../schema')
+
 
 module.exports = {
   async create(ctx, next) {
-    const { title } = ctx.request.body;
+    const { title } = createTodoSchema.validate(ctx.request.body);
 
     const folder = await TodoFolder.create({
       user_id: ctx.request.user.id,
@@ -14,31 +16,28 @@ module.exports = {
   },
 
   async edit(ctx, next) {
-    const id = ctx.params.id;
-    const { title } = ctx.request.body;
+    const { id } = idSchema.validate(ctx.params);
+    const { title } = createTodoSchema.validate(ctx.request.body);
 
-    let folder = await TodoFolder.findOne({
-      where: {
-        id
-      }
-    });
+    let folder = await TodoFolder.findByPk(id);
+
     if (title) folder.title = title;
+
     await folder.save();
 
     ctx.success("保存成功", folder);
   },
 
   async show(ctx, next) {
-    const id = ctx.params.id;
-    const folder = await TodoFolder.findOne({
-      where: {
-        id
-      }
-    });
+    const { id } = idSchema.validate(ctx.params);
+
+    let folder = await TodoFolder.findByPk(id);
+
     ctx.success("查询成功", folder);
   },
   async delete(ctx, next) {
-    const id = ctx.params.id;
+
+    const { id } = idSchema.validate(ctx.params);
 
     await Todo.destroy({
       where: {
@@ -52,6 +51,6 @@ module.exports = {
       }
     });
 
-    ctx.success("删除成功");
+    ctx.success("删除成功", true);
   }
 };
