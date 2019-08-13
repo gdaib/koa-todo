@@ -48,6 +48,12 @@ module.exports = {
   async login(ctx, next) {
     const { account, password } = ctx.request.body;
 
+    if (!account) {
+      throw new ctx.ErrorException({
+        message: "请输入用户名/邮箱地址",
+        code: 1003
+      });
+    }
     const db_user = await User.findOne({
       where: {
         [Op.or]: {

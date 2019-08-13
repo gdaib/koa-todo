@@ -9,11 +9,11 @@ const { api, router } = require("./router");
 const catchError = require("./middleware/catch");
 const resultMiddleware = require("./middleware/result");
 const jwtMiddleware = require("./middleware/jwt");
-const loggerMiddleware = require("./middleware/logger");
+const { accessLogger } = require("./middleware/logger");
 
 const app = new Koa();
 
-app.use(loggerMiddleware);
+app.use(accessLogger());
 app.use(catchError);
 app.use(resultMiddleware);
 app.use(
