@@ -32,12 +32,12 @@ User.init(
     },
     password: {
       type: Sequelize.STRING,
-      validate: {
-        len: {
-          args: [6, 12],
-          msg: "密码长度必须在 6 到 12 个字符之间"
-        }
-      }
+      // validate: {
+      //   len: {
+      //     args: [6, 12],
+      //     msg: "密码长度必须在 6 到 12 个字符之间"
+      //   }
+      // }
     }
   },
   {
@@ -60,6 +60,22 @@ module.exports = {
   },
 
   getOne: User.findById,
+
+  async findOneByUsername(username) {
+    return await User.findOne({
+      where: {
+        username
+      }
+    });
+  },
+
+  async findOneByEmail(email) {
+    return await User.findOne({
+      where: {
+        email
+      }
+    });
+  },
 
   verifyPw(pw, user) {
     return ph.verify(pw, user.password);

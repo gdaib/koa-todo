@@ -1,6 +1,7 @@
 const sq = require("../db");
 const Sequelize = require("sequelize");
 const { User } = require("./user");
+const sequelizePaginate = require("sequelize-paginate");
 
 const TodoFolder = sq.define(
   "todo_folder",
@@ -39,5 +40,7 @@ User.hasMany(TodoFolder, {
   as: "Folders",
   foreignKey: "user_id"
 });
+
+sequelizePaginate.paginate(TodoFolder)
 
 module.exports = { TodoFolder };

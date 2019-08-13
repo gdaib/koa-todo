@@ -1,9 +1,6 @@
-const jwt = require("jsonwebtoken");
+const utils = require("../common/utils");
 
-module.exports = function({ secret, unless = [] }) {
-  if (!secret) {
-    throw new Error("请传入秘钥");
-  }
+module.exports = function({ unless = [] }) {
   if (!Array.isArray(unless)) {
     throw new Error("unless 必须是数组");
   }
@@ -15,11 +12,11 @@ module.exports = function({ secret, unless = [] }) {
       const token = (ctx.headers["authorization"] || "").replace("Bearer ", "");
 
       try {
-        const user = jwt.verify(token, secret);
+        const user = utils.parseJwtToken(token);
 
-        ctx.request.user = user;
+        ctx.user = user;
       } catch (error) {
-        throw new ctx.HttpExceptionError({
+        throw new ctx.ErrorException({
           message: "token 无效或者已经过期",
           code: 401
         });

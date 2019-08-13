@@ -8,7 +8,7 @@ module.exports = {
     const { title } = ctx.request.body;
 
     const folder = await TodoFolder.create({
-      user_id: ctx.request.user.id,
+      user_id: ctx.user.id,
       title
     });
 

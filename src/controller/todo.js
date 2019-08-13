@@ -24,7 +24,7 @@ module.exports = {
           message = "文件夹不存在";
           code = 404;
         }
-        throw new ctx.HttpExceptionError({
+        throw new ctx.ErrorException({
           message,
           code
         });
@@ -78,15 +78,15 @@ module.exports = {
 
   async getAll(ctx, next) {
     const { pageSize = 10, page = 1, text = "" } = ctx.request.query;
-
-    const { count: total, rows: list } = await Todo.findAndCountAll({
-      limit: pageSize,
-      offset: (page - 1) * pageSize,
+    
+    const { docs: list, pages, total } = await Todo.paginate({
+      paginate: pageSize,
+      page,
       where: {
         text: { [Op.like]: `%${text}%` }
       }
     });
 
-    ctx.success("success", { total, list });
+    ctx.success("success", { total, list, pages });
   }
 };

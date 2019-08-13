@@ -1,12 +1,12 @@
 const Joi = require("@hapi/joi");
-const HttpExceptionError = require("../common/HttpExceptionError");
+const ErrorException = require("../common/ErrorException");
 
 const validate = function() {
   const { error, value } = validate.apply(this, arguments);
 
   if (error) {
     // result.error = error.details.map(item => item.message);
-    throw new HttpExceptionError({
+    throw new ErrorException({
       message: error.details.map(item => item.message).join("\n"),
       type: "VALIDATE_ERROR"
     });
@@ -75,7 +75,7 @@ Object.keys(_module).forEach(key => {
 
     if (error) {
       // result.error = error.details.map(item => item.message);
-      throw new HttpExceptionError({
+      throw new ErrorException({
         message: error.details.map(item => item.message).join("\n"),
         type: "VALIDATE_ERROR"
       });

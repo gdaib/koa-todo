@@ -1,4 +1,4 @@
-module.exports = class HttpExceptionError extends Error {
+module.exports = class ErrorException extends Error {
   constructor({ message, code, type }) {
     message = message || "未知错误";
     super(message);
@@ -10,6 +10,6 @@ module.exports = class HttpExceptionError extends Error {
   }
 
   of(data) {
-    return new HttpExceptionError(data);
+    return new ErrorException(data);
   }
 };

@@ -1,7 +1,7 @@
-const HttpExceptionError = require("../common/HttpExceptionError");
+const ErrorException = require("../common/ErrorException");
 
 module.exports = async (ctx, next) => {
-  ctx.HttpExceptionError = HttpExceptionError;
+  ctx.ErrorException = ErrorException;
 
   ctx.success = function(message = "success", payload, code = 0) {
     ctx.body = {

@@ -3,7 +3,7 @@ const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 const helmet = require("koa-helmet"); // 处理 sql 注入
 
-const { port, secret } = require("./config");
+const { port } = require("./config");
 const { api, router } = require("./router");
 
 const catchError = require("./middleware/catch");
@@ -18,7 +18,6 @@ app.use(catchError);
 app.use(resultMiddleware);
 app.use(
   jwtMiddleware({
-    secret,
     unless: [/^\/api\/v1\/(login|register)/]
   })
 );
