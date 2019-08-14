@@ -1,6 +1,8 @@
 const { Todo } = require("../model/todo");
 const { idSchema } = require("../schema");
 const { Op } = require("sequelize");
+const ErrorException = require("../common/ErrorException");
+
 
 module.exports = {
   async create(ctx, next) {
@@ -24,10 +26,7 @@ module.exports = {
           message = "文件夹不存在";
           code = 404;
         }
-        throw new ctx.ErrorException({
-          message,
-          code
-        });
+        throw new ErrorException(message, code);
       } else {
         throw error;
       }
@@ -78,7 +77,7 @@ module.exports = {
 
   async getAll(ctx, next) {
     const { pageSize = 10, page = 1, text = "" } = ctx.request.query;
-    
+
     const { docs: list, pages, total } = await Todo.paginate({
       paginate: pageSize,
       page,

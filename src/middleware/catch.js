@@ -1,5 +1,5 @@
 const { logger } = require("./logger");
-
+const { ErrorException } = require("../common/ErrorException");
 
 module.exports = async (ctx, next) => {
   try {
@@ -7,11 +7,16 @@ module.exports = async (ctx, next) => {
   } catch (error) {
     let message = error.message || "未知错误";
     let code = error.code || 500;
-    logger.error(error) // 打印错误日志
+
+    logger.error(error); // 打印错误日志
 
     if (code == 401) {
       ctx.status = 401;
+    } else {
+      ctx.status = 500;
+      code = 500;
     }
+
     // 增加 orm 抛出异常捕捉
     if (error.name == "SequelizeUniqueConstraintError") {
       code = 500;
@@ -23,7 +28,6 @@ module.exports = async (ctx, next) => {
       message = error.errors.map(({ message }) => message).join("\n");
     }
 
-    // ctx.status = code;
     ctx.error(message, code);
   }
 };

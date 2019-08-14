@@ -1,4 +1,5 @@
 const utils = require("../common/utils");
+const ErrorException = require("../common/ErrorException");
 
 module.exports = function({ unless = [] }) {
   if (!Array.isArray(unless)) {
@@ -16,10 +17,7 @@ module.exports = function({ unless = [] }) {
 
         ctx.user = user;
       } catch (error) {
-        throw new ctx.ErrorException({
-          message: "token 无效或者已经过期",
-          code: 401
-        });
+        throw new ErrorException("token 无效或者已经过期", 401);
       }
 
       await next();

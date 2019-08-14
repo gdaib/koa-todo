@@ -6,10 +6,9 @@ const validate = function() {
 
   if (error) {
     // result.error = error.details.map(item => item.message);
-    throw new ErrorException({
-      message: error.details.map(item => item.message).join("\n"),
-      type: "VALIDATE_ERROR"
-    });
+    throw new ErrorException(
+      error.details.map(item => item.message).join("\n")
+    );
   }
 
   return value;
@@ -39,25 +38,32 @@ const UserSchema = Joi.object().keys({
     .required()
 });
 
-
 const createTodo = Joi.object().keys({
-  text: Joi.string().min(1).max(20).required(),
+  text: Joi.string()
+    .min(1)
+    .max(20)
+    .required(),
   completed: Joi.boolean().required(),
   todo_folder_id: Joi.number().required()
-})
+});
 
 const editTodo = Joi.object().keys({
-  text: Joi.string().min(1).max(20),
-  completed: Joi.boolean(),
-})
+  text: Joi.string()
+    .min(1)
+    .max(20),
+  completed: Joi.boolean()
+});
 
 const idSchema = Joi.object().keys({
   id: Joi.number().required()
-})
+});
 
 const createTodoSchema = Joi.object().keys({
-  title: Joi.string().min(1).max(10).required()
-})
+  title: Joi.string()
+    .min(1)
+    .max(10)
+    .required()
+});
 
 const _module = {
   loginSchema,

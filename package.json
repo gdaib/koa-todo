@@ -19,10 +19,13 @@
     "koa-helmet": "^4.2.0",
     "koa-jwt": "^3.6.0",
     "koa-log4": "^2.3.2",
+    "koa-swagger": "^0.3.0",
     "password-hash": "^1.2.2",
     "sequelize": "^5.13.1",
     "sequelize-paginate": "^1.1.6",
-    "sqlite3": "^4.0.9"
+    "sqlite3": "^4.0.9",
+    "swagger2": "^1.0.5",
+    "swagger2-koa": "^1.0.4"
   },
   "devDependencies": {
     "ava": "^2.2.0",
