@@ -21,6 +21,11 @@ User.init(
         }
       }
     },
+    verifyEmail: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+      comment: "邮箱是否已验证"
+    },
     email: {
       type: Sequelize.STRING,
       unique: true,
@@ -31,7 +36,7 @@ User.init(
       }
     },
     password: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
       // validate: {
       //   len: {
       //     args: [6, 12],

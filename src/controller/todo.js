@@ -3,7 +3,6 @@ const { idSchema } = require("../schema");
 const { Op } = require("sequelize");
 const ErrorException = require("../common/ErrorException");
 
-
 module.exports = {
   async create(ctx, next) {
     const { todo_folder_id, text, completed } = ctx.request.body;

@@ -1,29 +1,17 @@
-const Router = require('koa-better-router')
-const UserController = require("../controller/user");
-const TodoController = require("../controller/todo");
-const FolderController =  require("../controller/folder");
+const Router = require("koa-router");
 
-const router = Router().loadMethods();
-const api = Router({ prefix: "/api/v1" });
+const router = new Router({
+  prefix: "/api/v1"
+});
 
-api.get("/register", UserController.register);
-api.post("/register", UserController.register);
-api.post("/login", UserController.login);
+const todo = require("./todo");
+const user = require("./user");
+const todoFloder = require("./todoFloder");
 
+router.use(todo.routes(), todo.allowedMethods());
+router.use(user.routes(), user.allowedMethods());
+router.use(todoFloder.routes(), todoFloder.allowedMethods());
 
-api.get("/todo", TodoController.getAll);
-api.get("/todo/:id", TodoController.show);
-api.post("/todo", TodoController.create);
-api.put("/todo/:id", TodoController.edit);
-api.del("/todo/:id", TodoController.delete);
-
-
-api.get("/folder", FolderController.getAll);
-api.get("/folder/:id", FolderController.show);
-api.post("/folder", FolderController.create);
-api.put("/folder/:id", FolderController.edit);
-api.del("/folder/:id", FolderController.delete);
-// api.addRoute('GET', 'register', UserController.register);
-
-api.extend(router);
-module.exports = { api, router };
+module.exports = app => {
+  app.use(router.routes(), router.allowedMethods());
+};

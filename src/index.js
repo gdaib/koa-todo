@@ -4,13 +4,10 @@ const bodyParser = require("koa-bodyparser");
 const helmet = require("koa-helmet"); // 处理 sql 注入
 
 const { port } = require("./config");
-const { api, router } = require("./router");
-
-const { resolve } = require("path");
+const initRouter = require("./router");
 
 const catchError = require("./middleware/catch");
 const resultMiddleware = require("./middleware/result");
-const jwtMiddleware = require("./middleware/jwt");
 const { accessLogger } = require("./middleware/logger");
 const { ui } = require("swagger2-koa");
 
@@ -19,16 +16,11 @@ const app = new Koa();
 app.use(accessLogger());
 app.use(catchError);
 app.use(resultMiddleware);
-// app.use(
-//   jwtMiddleware({
-//     unless: [/^\/api\/v1\/(login|register)/]
-//   })
-// );
 
 app.use(helmet());
 app.use(bodyParser());
-app.use(router.middleware());
-app.use(api.middleware());
+
+initRouter(app)
 
 // 加载 swagger 文档
 app.use(ui(require('./apidoc.json'), "/api", ["/api/v1"]));
