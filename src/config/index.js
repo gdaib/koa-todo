@@ -5,5 +5,9 @@ module.exports = {
   jwtConfig: {
     secret: "todo-app",
     expiresIn: "12h"
+  },
+  emailConfig: {
+    user: env.EMAIL_ACCOUNT,
+    pass: env.EMAIL_PASSWORD
   }
 };

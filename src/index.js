@@ -38,6 +38,7 @@ app.on("error", (err, ctx) => {
   console.error(err);
 });
 
+// 404 处理
 app.use(async (ctx, next) => {
   await next();
   if (ctx.status === 404) {
