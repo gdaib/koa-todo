@@ -1,7 +1,8 @@
 const { User, ...UserUtil } = require("../model/user");
-const { createJwtToken } = require("../common/utils");
+const { createJwtToken, geneateVerifyCode, emaliHelper } = require("../common/utils");
 const { Op } = require("sequelize");
 const ErrorException = require("../common/ErrorException");
+const { emailSchema } = require('../schema')
 
 
 function exceptPassword(user) {
@@ -9,6 +10,7 @@ function exceptPassword(user) {
   if (user.password) delete user.password;
   return user;
 }
+
 
 module.exports = {
   async register(ctx, next) {
@@ -73,5 +75,30 @@ module.exports = {
       ...userData,
       token: createJwtToken(userData)
     });
+  },
+
+  async sendEmail2Vertify(ctx, next) {
+    const { email } = emailSchema.validate(ctx.request.body)
+
+    const user = await UserUtil.findOneByEmail(email)
+
+    if (!user) {
+      throw new ErrorException('邮箱未注册', 411)
+    }
+
+    const token = geneateVerifyCode(20)
+
+    ctx.$emailStore.set(token, {
+      email
+    })
+
+    await emaliHelper.sendVertifyEmail({
+      email, token
+    })
+
+
+    ctx.success('success', {
+      token
+    })
   }
 };

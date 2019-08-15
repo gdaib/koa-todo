@@ -9,9 +9,20 @@ const createJwtToken = data =>
 // 解析  token
 const parseJwtToken = token => jwt.verify(token, jwtConfig.secret);
 
+// type mixin number char
+const geneateVerifyCode = (len) => {
+  const origin =
+    '01234567890abcdefghijklmnopqrstuvwsyzABCDEFGHIJKLMNOPQRSTUVWSYZ'
+  let result = ''
+  for (let i = 0; i < len; i++) {
+    result += origin[Math.floor(Math.random() * origin.length)]
+  }
+  return result
+}
 
 module.exports = {
   createJwtToken,
   parseJwtToken,
-  emaliHelper: new EmailHelper()
+  emaliHelper: new EmailHelper(),
+  geneateVerifyCode
 };

@@ -6,4 +6,6 @@ router.post("/register", UserController.register);
 
 router.post("/login", UserController.login);
 
+router.post('/getVertifyToken', UserController.sendEmail2Vertify)
+
 module.exports = router
