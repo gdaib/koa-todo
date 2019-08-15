@@ -1,10 +1,12 @@
 const ErrorException = require("../common/ErrorException");
-const Store = require('../common/store.js')
+const Store = require("../common/store.js");
+
+let $emailStore = new Store("$email");
 
 module.exports = async (ctx, next) => {
   ctx.ErrorException = ErrorException;
 
-  ctx.$emailStore = new Store('$email')
+  ctx.$emailStore = $emailStore;
 
   ctx.success = function(message = "success", payload, code = 0) {
     ctx.body = {

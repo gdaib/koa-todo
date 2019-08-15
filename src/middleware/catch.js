@@ -12,7 +12,7 @@ module.exports = async (ctx, next) => {
 
     if (code == 401) {
       ctx.status = 401;
-    } else {
+    } else if (!code){
       ctx.status = 500;
       code = 500;
     }

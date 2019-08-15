@@ -9,5 +9,6 @@ module.exports = {
   emailConfig: {
     user: env.EMAIL_ACCOUNT,
     pass: env.EMAIL_PASSWORD
-  }
+  },
+  secretkey: env.SECRETKEY
 };

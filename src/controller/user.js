@@ -1,16 +1,20 @@
 const { User, ...UserUtil } = require("../model/user");
-const { createJwtToken, geneateVerifyCode, emaliHelper } = require("../common/utils");
+const {
+  createJwtToken,
+  geneateVerifyCode,
+  emaliHelper,
+  deCodeEmail,
+  enCodeEmail
+} = require("../common/utils");
 const { Op } = require("sequelize");
 const ErrorException = require("../common/ErrorException");
-const { emailSchema } = require('../schema')
-
+const { emailSchema } = require("../schema");
 
 function exceptPassword(user) {
   user = JSON.parse(JSON.stringify(user));
   if (user.password) delete user.password;
   return user;
 }
-
 
 module.exports = {
   async register(ctx, next) {
@@ -77,28 +81,57 @@ module.exports = {
     });
   },
 
-  async sendEmail2Vertify(ctx, next) {
-    const { email } = emailSchema.validate(ctx.request.body)
+  async sendEmail2Verify(ctx, next) {
+    const { email } = emailSchema.validate(ctx.request.body);
 
-    const user = await UserUtil.findOneByEmail(email)
+    const user = await UserUtil.findOneByEmail(email);
 
     if (!user) {
-      throw new ErrorException('邮箱未注册', 411)
+      throw new ErrorException("邮箱未注册", 411);
     }
+    let code = geneateVerifyCode(20);
 
-    const token = geneateVerifyCode(20)
+    const token = enCodeEmail(email, code);
 
-    ctx.$emailStore.set(token, {
-      email
-    })
+    ctx.$emailStore.set(email, {
+      token,
+      code
+    });
 
-    await emaliHelper.sendVertifyEmail({
-      email, token
-    })
+    // await emaliHelper.sendVerifyEmail({
+    //   email,
+    //   token
+    // });
 
-
-    ctx.success('success', {
+    ctx.success("success", {
       token
-    })
+    });
+  },
+
+  async verifyEmail(ctx, next) {
+    const token = ctx.request.body.token;
+
+    if (!token) throw new ErrorException("token错误", 412);
+
+    const str = deCodeEmail(token);
+    const [email, code] = str.split(" ");
+
+    let data = ctx.$emailStore.get(email);
+
+    if (!data) throw new ErrorException("验证token已过期，请重新申请", 414);
+
+    if (data.token !== token || data.code !== code)
+      throw new ErrorException("token错误", 412);
+
+    const user = await UserUtil.findOneByEmail(email);
+
+    if (user.verifyEmail)
+      throw new ErrorException("邮箱已经验证过，无需重复验证", 415);
+
+    user.verifyEmail = true;
+
+    await user.save();
+
+    ctx.success("验证邮箱成功");
   }
 };

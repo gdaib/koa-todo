@@ -3,14 +3,16 @@ class Store {
   constructor(prefix, minute = 10) {
     this.store = {};
     this.prefix = prefix;
-    this.expireTime = 10 * 60 * 1000;
+    this.expireTime = minute * 60 * 1000;
   }
 
   set(key, value) {
+
     this.store[`${this.prefix}_${key}`] = {
       data: { ...value },
       expireTime: Date.now() + this.expireTime // 加上过期时间等于有效时间
     };
+ 
     return true;
   }
 
@@ -18,7 +20,6 @@ class Store {
     const _key = `${this.prefix}_${key}`;
 
     const value = this.store[_key];
-
     if (!value) return null;
 
     const { data, expireTime } = value;
@@ -33,5 +34,4 @@ class Store {
   }
 }
 
-
-module.exports = Store
+module.exports = Store;
