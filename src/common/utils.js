@@ -9,6 +9,7 @@ const createJwtToken = data =>
 // 解析  token
 const parseJwtToken = token => jwt.verify(token, jwtConfig.secret);
 
+
 module.exports = {
   createJwtToken,
   parseJwtToken,

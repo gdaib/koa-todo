@@ -1,17 +1,20 @@
 const Router = require("koa-router");
+const glob = require("glob");
+const { resolve } = require("path");
 
 const router = new Router({
   prefix: "/api/v1"
 });
 
-const todo = require("./todo");
-const user = require("./user");
-const todoFloder = require("./todoFloder");
-
-router.use(todo.routes(), todo.allowedMethods());
-router.use(user.routes(), user.allowedMethods());
-router.use(todoFloder.routes(), todoFloder.allowedMethods());
-
+// 自动加载路由
 module.exports = app => {
+  const files = glob.sync(resolve(__dirname, "./*.js"));
+  files.forEach(filePath => {
+    if (!/index.js/.test(filePath)) {
+      const _router = require(resolve(__dirname, `${filePath}`));
+      router.use(_router.routes(), _router.allowedMethods());
+    }
+  });
+
   app.use(router.routes(), router.allowedMethods());
 };
