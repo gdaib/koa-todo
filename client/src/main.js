@@ -4,11 +4,16 @@ import router from "./router";
 import store from "./store";
 import ElementUI from "element-ui";
 import { plugin } from "vue-function-api";
+import ElFormRenderer from "@femessage/el-form-renderer";
 
-import "./styles.scss";
+import "element-ui/lib/theme-chalk/index.css";
+import "@/assets/styles/index.less";
+
+Vue.use(ElementUI);
 
 Vue.use(ElementUI);
 Vue.use(plugin);
+Vue.component(ElFormRenderer.name, ElFormRenderer);
 
 Vue.config.productionTip = false;
 
