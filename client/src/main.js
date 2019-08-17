@@ -2,10 +2,13 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import ElementUI from 'element-ui'
-import './styles.scss'
+import ElementUI from "element-ui";
+import { plugin } from "vue-function-api";
 
-Vue.use(ElementUI)
+import "./styles.scss";
+
+Vue.use(ElementUI);
+Vue.use(plugin);
 
 Vue.config.productionTip = false;
 
