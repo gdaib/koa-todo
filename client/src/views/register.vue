@@ -70,7 +70,6 @@ const registerForm = [
   }
 ];
 
-
 export default {
   setup() {
     const registerContent = value(registerForm);
