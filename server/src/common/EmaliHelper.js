@@ -52,23 +52,24 @@ class EmailHelper {
     });
   }
 
-  sendVerifyEmail({ email, token }) {
-    const link = `http://www.baidu.com?token=${token}`;
-
-    this.sendMail({
-      title: "【TODO任务系统邮箱激活邮件】",
-      email,
-      content: `
+  sendVerifyEmail({ email, token, vertifyUrl }) {
+    const link = `${vertifyUrl}?token=${token}`;
+    const html = `
       <p>您好，感谢您在 TODO任务系统 注册账户</p>
 
       <p>请点击下方链接进行验证</p>
 
-      <a href="${link}">${link}</a>
+      <a href="${link}">点击验证邮箱</a>
       
       <p>-- TODO任务系统，个人的记事本</p>
 
       <p>祝您生活愉快每一天。</p>
       `
+      console.log(html)
+    this.sendMail({
+      title: "【TODO任务系统邮箱激活邮件】",
+      email,
+      content: html
     });
   }
 }

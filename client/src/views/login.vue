@@ -39,7 +39,8 @@ const loginForm = [
     id: "password",
     el: {
       placeholder: "密码",
-      prefixIcon: "el-icon-lock"
+      prefixIcon: "el-icon-lock",
+      type: 'password'
     },
     rules: [
       {

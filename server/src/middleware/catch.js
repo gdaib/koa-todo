@@ -12,7 +12,7 @@ module.exports = async (ctx, next) => {
 
     if (code == 401) {
       ctx.status = 401;
-    } else if (!code){
+    } else if (!code) {
       ctx.status = 500;
       code = 500;
     }
@@ -27,6 +27,9 @@ module.exports = async (ctx, next) => {
       code = 400;
       message = error.errors.map(({ message }) => message).join("\n");
     }
+
+    // 兼容 joi validate 错误
+    if (typeof message === "object") message = message.message;
 
     ctx.error(message, code);
   }

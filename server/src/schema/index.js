@@ -1,7 +1,7 @@
 const Joi = require("@hapi/joi");
 const ErrorException = require("../common/ErrorException");
 
-const validate = function () {
+const validate = function() {
   const { error, value } = validate.apply(this, arguments);
 
   if (error) {
@@ -24,12 +24,14 @@ const loginSchema = Joi.object().keys({
     .required()
 });
 
-
 const emailSchema = Joi.object().keys({
   email: Joi.string()
     .email()
     .required(),
-})
+  vertifyUrl: Joi.string()
+    .uri()
+    .required()
+});
 
 // 注册验证
 const UserSchema = Joi.object().keys({
@@ -84,7 +86,7 @@ const _module = {
 
 Object.keys(_module).forEach(key => {
   const fn = _module[key].validate;
-  _module[key].validate = function () {
+  _module[key].validate = function() {
     const { error, value } = fn.apply(this, arguments);
 
     if (error) {

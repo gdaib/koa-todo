@@ -32,6 +32,14 @@ class Store {
 
     return data;
   }
+  
+  remove(key) {
+    const _key = `${this.prefix}_${key}`;
+
+    delete this.store[_key];
+
+    return true
+  }
 }
 
 module.exports = Store;

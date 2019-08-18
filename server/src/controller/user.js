@@ -23,6 +23,9 @@ module.exports = {
     if (!username) {
       throw new ErrorException("用户名为必填项");
     }
+    if (!password) {
+      throw new ErrorException("密码为必填项");
+    }
 
     let user = await UserUtil.findOneByUsername(username);
 
@@ -82,13 +85,18 @@ module.exports = {
   },
 
   async sendEmail2Verify(ctx, next) {
-    const { email } = emailSchema.validate(ctx.request.body);
+    // 验证地址需要从前端发送过来，因为如果真实项目中，会有很多个环境
+    const { email, vertifyUrl } = emailSchema.validate(ctx.request.body);
 
     const user = await UserUtil.findOneByEmail(email);
 
     if (!user) {
       throw new ErrorException("邮箱未注册", 411);
     }
+
+    // if (!user.vertifyEmail)
+    //   throw new ErrorException("邮箱已经验证过，无需重复验证", 411);
+
     let code = geneateVerifyCode(20);
 
     const token = enCodeEmail(email, code);
@@ -98,10 +106,11 @@ module.exports = {
       code
     });
 
-    // await emaliHelper.sendVerifyEmail({
-    //   email,
-    //   token
-    // });
+    await emaliHelper.sendVerifyEmail({
+      email,
+      token,
+      vertifyUrl
+    });
 
     ctx.success("success", {
       token
@@ -129,6 +138,8 @@ module.exports = {
       throw new ErrorException("邮箱已经验证过，无需重复验证", 415);
 
     user.verifyEmail = true;
+    // 删除token
+    ctx.$emailStore.remove(email);
 
     await user.save();
 

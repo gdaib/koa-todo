@@ -6,7 +6,7 @@ router.post("/register", UserController.register);
 
 router.post("/login", UserController.login);
 
-router.post("/getVerifyToken", UserController.sendEmail2Verify);
+router.post("/sendVerifyEmail", UserController.sendEmail2Verify);
 
 router.post('/verifyEmail', UserController.verifyEmail)
 

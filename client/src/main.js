@@ -9,9 +9,10 @@ import ElFormRenderer from "@femessage/el-form-renderer";
 import "element-ui/lib/theme-chalk/index.css";
 import "@/assets/styles/index.less";
 
-Vue.use(ElementUI);
+import './global'
 
 Vue.use(ElementUI);
+
 Vue.use(plugin);
 Vue.component(ElFormRenderer.name, ElFormRenderer);
 
