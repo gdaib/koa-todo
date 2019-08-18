@@ -21,7 +21,7 @@ import { plugin, value, computed, watch, onMounted } from "vue-function-api";
 const loginForm = [
   {
     type: "input",
-    id: "username",
+    id: "account",
     el: {
       placeholder: "用户名/邮箱地址",
       prefixIcon: "el-icon-user"
@@ -40,7 +40,7 @@ const loginForm = [
     el: {
       placeholder: "密码",
       prefixIcon: "el-icon-lock",
-      type: 'password'
+      type: "password"
     },
     rules: [
       {
@@ -52,13 +52,23 @@ const loginForm = [
   }
 ];
 
-
 export default {
-  setup() {
+  setup(props, ctx) {
     const loginContent = value(loginForm);
-
+    const { $store, toast } = ctx.root;
+ 
     const login = () => {
-      console.log("login");
+      const { form } = ctx.refs;
+
+      form.validate(validate => {
+        if (!validate) return;
+
+        const data = form.getFormValue();
+
+        $store.dispatch("login", data).then(() => {
+          toast("登录成功");
+        });
+      });
     };
 
     return {

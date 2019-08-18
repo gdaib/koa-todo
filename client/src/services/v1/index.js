@@ -14,3 +14,6 @@ export const sendEmail = params =>
 // 验证邮箱
 export const vertifyEmailAPi = params =>
   axios.$post(`${baseUrl}/verifyEmail`, params);
+
+// 登录接口
+export const loginApi = params => axios.$post(`${baseUrl}/login`, params)

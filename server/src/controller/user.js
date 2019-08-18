@@ -94,8 +94,8 @@ module.exports = {
       throw new ErrorException("邮箱未注册", 411);
     }
 
-    // if (!user.vertifyEmail)
-    //   throw new ErrorException("邮箱已经验证过，无需重复验证", 411);
+    if (!user.vertifyEmail)
+      throw new ErrorException("邮箱已经验证过，无需重复验证", 411);
 
     let code = geneateVerifyCode(20);
 
