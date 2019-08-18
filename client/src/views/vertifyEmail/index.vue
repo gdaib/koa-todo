@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { value, component, onMounted } from "vue-function-api";
+import { value, onMounted } from "vue-function-api";
 
 import { vertifyEmailAPi } from "@/services/v1";
 

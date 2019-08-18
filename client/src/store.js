@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     user: {
       token: "",
-      username: "",
+      username: "guest",
       email: ""
     }
   },

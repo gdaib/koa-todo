@@ -7,8 +7,13 @@
       <h2>登陆</h2>
       <el-form-renderer :content="loginContent" ref="form">
         <el-form-item label=" ">
-          <el-button type="primary" @click="login">登陆</el-button>
-          <el-button @click="$router.push('/register')">没有账号？</el-button>
+          <el-button type="primary" class="login-btn" :loading="loading" @click="login">登陆</el-button>
+        </el-form-item>
+        <el-form-item label=" ">
+          <div class="reset-main">
+            <el-button @click="$router.push('/register')" type="text">没有账号？</el-button>
+            <el-button @click="$router.push('/resetpassword')" type="text">忘记密码</el-button>
+          </div>
         </el-form-item>
       </el-form-renderer>
     </div>
@@ -55,8 +60,9 @@ const loginForm = [
 export default {
   setup(props, ctx) {
     const loginContent = value(loginForm);
+    const loading = value(false);
     const { $store, toast } = ctx.root;
- 
+
     const login = () => {
       const { form } = ctx.refs;
 
@@ -64,16 +70,22 @@ export default {
         if (!validate) return;
 
         const data = form.getFormValue();
-
-        $store.dispatch("login", data).then(() => {
-          toast("登录成功");
-        });
+        loading.value = true;
+        $store
+          .dispatch("login", data)
+          .then(() => {
+            toast("登录成功");
+          })
+          .finally(() => {
+            loading.value = false;
+          });
       });
     };
 
     return {
       loginContent,
-      login
+      login,
+      loading
     };
   }
 };
@@ -112,6 +124,13 @@ export default {
     .el-button + .el-button {
       margin-left: 20px;
     }
+  }
+
+  .login-btn {
+    width: 100%;
+  }
+  .reset-main {
+    text-align: right;
   }
 }
 </style>
