@@ -60,7 +60,7 @@ router.beforeEach((to, from, next) => {
       next("/login");
     } else {
       store.commit("update", { user: JSON.parse(userData) });
-      next("/todo");
+      whiteRoutes.includes(to.path) ? next("/todo") : next();
     }
   } else {
     if (whiteRoutes.includes(to.path)) {

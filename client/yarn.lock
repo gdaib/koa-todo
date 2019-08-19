@@ -670,6 +670,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@femessage/el-data-table@^1.7.3":
+  version "1.7.3"
+  resolved "https://registry.npm.taobao.org/@femessage/el-data-table/download/@femessage/el-data-table-1.7.3.tgz#e0448c014b5f2c6ce876af12d1bde05983ddac89"
+  integrity sha1-4ESMAUtfLGzodq8S0b3gWYPdrIk=
+  dependencies:
+    lodash.get "^4.4.2"
+
 "@femessage/el-form-renderer@^1.11.1":
   version "1.11.1"
   resolved "https://registry.npm.taobao.org/@femessage/el-form-renderer/download/@femessage/el-form-renderer-1.11.1.tgz#899bc46e469bd8187a54a1626c7f92dfeb95c37c"
@@ -2621,6 +2628,11 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npm.taobao.org/date-now/download/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
+
+dayjs@^1.8.15:
+  version "1.8.15"
+  resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.8.15.tgz?cache=0&sync_timestamp=1562597134097&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdayjs%2Fdownload%2Fdayjs-1.8.15.tgz#7121bc04e6a7f2621ed6db566be4a8aaf8c3913e"
+  integrity sha1-cSG8BOan8mIe1ttWa+SoqvjDkT4=
 
 de-indent@^1.0.2:
   version "1.0.2"
