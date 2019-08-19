@@ -61,7 +61,7 @@ export default {
   setup(props, ctx) {
     const loginContent = value(loginForm);
     const loading = value(false);
-    const { $store, toast } = ctx.root;
+    const { $store, toast, $router } = ctx.root;
 
     const login = () => {
       const { form } = ctx.refs;
@@ -75,6 +75,7 @@ export default {
           .dispatch("login", data)
           .then(() => {
             toast("登录成功");
+            $router.push('/todo')
           })
           .finally(() => {
             loading.value = false;

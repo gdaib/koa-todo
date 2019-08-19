@@ -21,10 +21,17 @@ export default new Vuex.Store({
   },
   actions: {
     async login({ commit }, payload) {
+      const { payload: user } = await loginApi(payload);
 
-      const data = await loginApi(payload);
+      localStorage.setItem("userInfo", JSON.stringify(user));
 
-      commit("update", data);
+      commit("update", {
+        user: {
+          token: user.token,
+          username: user.username,
+          email: user.email
+        }
+      });
     }
   },
   getters: {

@@ -1,11 +1,12 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "./store";
 
 Vue.use(Router);
 
 import Layout from "@/layouts/home";
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -49,3 +50,25 @@ export default new Router({
     }
   ]
 });
+
+const whiteRoutes = ["/login", "/register"];
+
+router.beforeEach((to, from, next) => {
+  if (!store.state.user.token) {
+    const userData = localStorage.getItem("userInfo");
+    if (!userData) {
+      next("/login");
+    } else {
+      store.commit("update", { user: JSON.parse(userData) });
+      next("/todo");
+    }
+  } else {
+    if (whiteRoutes.includes(to.path)) {
+      next("/todo");
+    } else {
+      next();
+    }
+  }
+});
+
+export default router;
