@@ -4,21 +4,30 @@
       class="menu-container"
       background-color="#545c64"
       text-color="#fff"
+      :collapse-transition="false"
+      router
       active-text-color="#ffd04b"
     >
-      <el-submenu index="1">
-        <template slot="title">
-          <span>TODO</span>
-        </template>
-        <el-menu-item index="1-4-1">类目管理</el-menu-item>
-      </el-submenu>
+      <menu-item :menuList="menuList"></menu-item>
     </el-menu>
   </el-scrollbar>
 </template>
 
 <script>
+import MenuItem from "./menu-item";
+
+import { menuList } from "./const";
+
 export default {
-  name: "VMenu"
+  name: "VMenu",
+  components: {
+    [MenuItem.name]: MenuItem
+  },
+  setup() {
+    return {
+      menuList
+    };
+  }
 };
 </script>
 
