@@ -30,7 +30,7 @@ const TodoFolder = sq.define(
     }
   },
   {
-    timestamps: false, // 关闭时间戳
+    // timestamps: false, // 关闭时间戳
     freezeTableName: true // 模型名字与表名相同
   }
 );

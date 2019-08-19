@@ -54,6 +54,10 @@ const router = new Router({
 const whiteRoutes = ["/login", "/register"];
 
 router.beforeEach((to, from, next) => {
+  if (whiteRoutes.includes(to.path) && !localStorage.getItem("userInfo")) {
+    return next();
+  }
+
   if (!store.state.user.token) {
     const userData = localStorage.getItem("userInfo");
     if (!userData) {
