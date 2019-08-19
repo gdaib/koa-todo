@@ -2,7 +2,7 @@
   <el-scrollbar wrap-class="scrollbar-wrapper">
     <el-menu
       class="menu-container"
-      background-color="#545c64"
+      background-color="#2d303b"
       text-color="#fff"
       :default-active="$route.path"
       :collapse-transition="false"
@@ -39,7 +39,8 @@ export default {
   top: 0;
   height: 100%;
   width: 200px;
-  background: #545c64;
+  background: #2d303b;
+  overflow: hidden;
 
   .el-scrollbar__wrap {
     min-height: 100%;

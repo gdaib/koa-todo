@@ -31,8 +31,8 @@ const instance = axios.create({
 // http request 拦截器
 instance.interceptors.request.use(
   config => {
-    if (store.state.user.token) {
-      config.headers.Authorization = `Bearer ${store.state.user.token}`;
+    if (store.getters.token) {
+      config.headers.Authorization = `Bearer ${store.getters.token}`;
     }
     return config;
   },
@@ -52,6 +52,7 @@ instance.interceptors.response.use(
       Message.error({
         message: data.message
       });
+      localStorage.removeItem("userInfo");
       router.push("/login");
       return Promise.reject(data);
     }

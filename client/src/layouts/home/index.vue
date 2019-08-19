@@ -41,6 +41,9 @@ export default {
       overflow-y: auto;
     }
   }
+  .el-menu {
+    border-right: none;
+  }
 }
 .el-header {
   border-bottom: 1px solid #efefef;

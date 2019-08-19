@@ -33,7 +33,7 @@ export default {
     const open = value(true);
 
     const user = computed(() => {
-      return $store.state.user;
+      return $store.getters.user;
     });
 
     const menuIcon = computed(() => {

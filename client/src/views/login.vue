@@ -72,7 +72,7 @@ export default {
         const data = form.getFormValue();
         loading.value = true;
         $store
-          .dispatch("login", data)
+          .dispatch("user/login", data)
           .then(() => {
             toast("登录成功");
             $router.push('/todo')

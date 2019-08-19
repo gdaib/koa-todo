@@ -1,6 +1,6 @@
 export const menuList = [
   {
-    name: "TODO",
+    name: "TODO管理",
     children: [
       {
         name: "类目管理",

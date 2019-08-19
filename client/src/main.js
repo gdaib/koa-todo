@@ -16,7 +16,6 @@ Vue.use(ElementUI);
 Vue.use(plugin);
 Vue.component(ElFormRenderer.name, ElFormRenderer);
 
-
 Vue.config.productionTip = false;
 
 new Vue({

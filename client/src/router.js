@@ -58,12 +58,12 @@ router.beforeEach((to, from, next) => {
     return next();
   }
 
-  if (!store.state.user.token) {
+  if (!store.getters.token) {
     const userData = localStorage.getItem("userInfo");
     if (!userData) {
       next("/login");
     } else {
-      store.commit("update", { user: JSON.parse(userData) });
+      store.commit("user/update", JSON.parse(userData));
       whiteRoutes.includes(to.path) ? next("/todo") : next();
     }
   } else {
