@@ -1,4 +1,5 @@
 import Vue from "vue";
+import axios from "@/services";
 
 Vue.mixin({
   methods: {
@@ -10,3 +11,6 @@ Vue.mixin({
     }
   }
 });
+
+
+Vue.prototype.$axios = axios;

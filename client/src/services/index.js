@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Message } from "element-ui";
+import store from '@/store'
 
 function axiosExtra(axios) {
   for (let method of [
@@ -29,9 +30,9 @@ const instance = axios.create({
 // http request 拦截器
 instance.interceptors.request.use(
   config => {
-    // if (store.state.token) {
-    //   config.headers.Authorization = `token ${store.state.token}`;
-    // }
+    if (store.state.user.token) {
+      config.headers.Authorization = `Bearer ${store.state.user.token}`;
+    }
     return config;
   },
   err => {
@@ -39,7 +40,7 @@ instance.interceptors.request.use(
   }
 );
 
-const whiteStatus = [200, 304, 400];
+const whiteStatus = [200, 304, 400, 401];
 
 // http response 拦截器
 instance.interceptors.response.use(
