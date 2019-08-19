@@ -35,18 +35,24 @@ module.exports = {
 
     ctx.success("查询成功", folder);
   },
+
+  /**
+   * 删除类目
+   */
   async delete(ctx, next) {
-    const { id } = idSchema.validate(ctx.params);
+    const { id } = ctx.params;
+
+    const ids = id.split(',').map(Number)
 
     await Todo.destroy({
       where: {
-        todo_folder_id: id
+        todo_folder_id: ids
       }
     });
 
     await TodoFolder.destroy({
       where: {
-        id
+        id: ids
       }
     });
 

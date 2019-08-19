@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@femessage/el-data-table": "^1.7.3",
-    "@femessage/el-form-renderer": "1.6.1",
+    "@femessage/el-form-renderer": "^1.11.2",
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "dayjs": "^1.8.15",

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Message } from "element-ui";
-import store from '@/store'
+import store from "@/store";
+import router from "@/router";
 
 function axiosExtra(axios) {
   for (let method of [
@@ -40,12 +41,20 @@ instance.interceptors.request.use(
   }
 );
 
-const whiteStatus = [200, 304, 400, 401];
+const whiteStatus = [200, 304, 400];
 
 // http response 拦截器
 instance.interceptors.response.use(
   res => {
     const { data, status } = res;
+
+    if (status === 401) {
+      Message.error({
+        message: data.message
+      });
+      router.push("/login");
+      return Promise.reject(data);
+    }
 
     if (!whiteStatus.includes(status)) {
       Message.error({

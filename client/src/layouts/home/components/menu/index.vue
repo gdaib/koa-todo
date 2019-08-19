@@ -4,6 +4,7 @@
       class="menu-container"
       background-color="#545c64"
       text-color="#fff"
+      :default-active="$route.path"
       :collapse-transition="false"
       router
       active-text-color="#ffd04b"

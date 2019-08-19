@@ -23,6 +23,9 @@ export default {
         totalPath: "payload.total",
         columns: [
           {
+            type: "selection"
+          },
+          {
             prop: "title",
             label: "标题"
           },
@@ -51,11 +54,11 @@ export default {
         ],
         searchForm: [
           {
-            type: 'input',
-            id: 'title',
+            type: "input",
+            id: "title",
             label: "类目名称",
             el: {
-              placeholder: '请输入'
+              placeholder: "请输入"
             }
           }
         ]
