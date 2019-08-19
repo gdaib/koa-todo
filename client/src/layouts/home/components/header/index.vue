@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="left-panel">
-      <i class="menu-icon" :class="menuIcon" @click="open = !open"></i>
+      <i class="menu-icon" :class="menuIcon" @click="toggleMenu"></i>
     </div>
     <div class="right-panel">
       <el-dropdown>
@@ -30,20 +30,22 @@ export default {
   setup(props, ctx) {
     const { $store } = ctx.root;
 
-    const open = value(true);
-
     const user = computed(() => {
       return $store.getters.user;
     });
 
+    const toggleMenu = () => {
+      $store.commit('app/TOGGLE_SIDEBAR')
+    }
+
     const menuIcon = computed(() => {
-      return open.value ? "el-icon-s-fold" : "el-icon-s-unfold";
+      return $store.getters.sidebar.opened ? "el-icon-s-fold" : "el-icon-s-unfold";
     });
 
     return {
       user,
-      open,
-      menuIcon
+      menuIcon,
+      toggleMenu
     };
   }
 };

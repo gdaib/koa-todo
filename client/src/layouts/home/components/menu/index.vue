@@ -7,6 +7,8 @@
       :default-active="$route.path"
       :collapse-transition="false"
       router
+      :collapse="isCollapse"
+      :unique-opened="false"
       active-text-color="#1890ff"
     >
       <menu-item :menuList="menuList"></menu-item>
@@ -16,7 +18,7 @@
 
 <script>
 import MenuItem from "./menu-item";
-
+import { computed } from 'vue-function-api'
 import { menuList } from "./const";
 
 export default {
@@ -24,9 +26,13 @@ export default {
   components: {
     [MenuItem.name]: MenuItem
   },
-  setup() {
+  setup(props, ctx) {
+    const { $store } = ctx.root
+
+    const isCollapse = computed(() => !$store.getters.sidebar.opened)
     return {
-      menuList
+      menuList,
+      isCollapse
     };
   }
 };
