@@ -7,7 +7,7 @@
       :default-active="$route.path"
       :collapse-transition="false"
       router
-      active-text-color="#ffd04b"
+      active-text-color="#1890ff"
     >
       <menu-item :menuList="menuList"></menu-item>
     </el-menu>
