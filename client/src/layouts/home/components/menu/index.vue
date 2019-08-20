@@ -9,6 +9,7 @@
       router
       :collapse="isCollapse"
       :unique-opened="false"
+      @select
       active-text-color="#1890ff"
     >
       <menu-item :menuList="menuList"></menu-item>

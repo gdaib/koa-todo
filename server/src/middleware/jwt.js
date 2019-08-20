@@ -9,6 +9,7 @@ module.exports = async (ctx, next) => {
 
     ctx.user = user;
   } catch (error) {
+    console.log(error);
     throw new ErrorException("token 无效或者已经过期", 401);
   }
 
