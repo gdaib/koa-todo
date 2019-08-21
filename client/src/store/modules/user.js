@@ -13,11 +13,16 @@ const actions = {
     localStorage.setItem("userInfo", JSON.stringify(user));
 
     commit("update", {
-      user: {
-        token: user.token,
-        username: user.username,
-        email: user.email
-      }
+      token: user.token,
+      username: user.username,
+      email: user.email
+    });
+  },
+  clearUserInfo({ commit }) {
+    commit("update", {
+      token: "",
+      username: "",
+      email: ""
     });
   }
 };

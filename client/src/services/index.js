@@ -54,6 +54,7 @@ instance.interceptors.response.use(
       });
       localStorage.removeItem("userInfo");
       router.push("/login");
+      store.dispatch("user/clearUserInfo");
       return Promise.reject(data);
     }
 
