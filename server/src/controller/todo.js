@@ -64,11 +64,13 @@ module.exports = {
   },
 
   async delete(ctx, next) {
-    const { id } = idSchema.validate(ctx.params);
+    const { id } = ctx.params;
+
+    const ids = id.split(',').map(Number)
 
     await Todo.destroy({
       where: {
-        id
+        id: ids
       }
     });
     ctx.success("删除成功", true);

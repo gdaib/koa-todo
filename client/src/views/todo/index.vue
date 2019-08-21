@@ -81,6 +81,9 @@ export default {
         totalPath: "payload.total",
         columns: [
           {
+            type: 'selection'
+          },
+          {
             prop: 'text',
             label: '内容'
           },
