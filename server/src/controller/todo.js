@@ -44,7 +44,7 @@ module.exports = {
     });
 
     if (text) todo.text = text;
-    if (completed) todo.completed = completed;
+    if (completed != null) todo.completed = completed;
     // if (todo_folder_id) todo.todo_folder_id = todo_folder_id;
     await todo.save();
 
