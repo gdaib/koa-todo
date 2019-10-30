@@ -4022,10 +4022,10 @@ sequelize-pool@^2.3.0:
   resolved "https://registry.npm.taobao.org/sequelize-pool/download/sequelize-pool-2.3.0.tgz#64f1fe8744228172c474f530604b6133be64993d"
   integrity sha1-ZPH+h0QigXLEdPUwYEthM75kmT0=
 
-sequelize@^5.13.1:
-  version "5.13.1"
-  resolved "https://registry.npm.taobao.org/sequelize/download/sequelize-5.13.1.tgz#599db5c96de7da5020aead758e59b875fba3fc96"
-  integrity sha1-WZ21yW3n2lAgrq11jlm4dfuj/JY=
+sequelize@^5.15.1:
+  version "5.15.1"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-5.15.1.tgz#f130ded17e74395ae7f5e265277c99577e895afb"
+  integrity sha512-DCzzJYvJLMKnyf8G3at2A+yM9M2fSQmTmuOYIpCWM8Gjqx3XfgNTd1NkuyPWFoi1/d1AXQsN2VDPXkPczida8A==
   dependencies:
     bluebird "^3.5.0"
     cls-bluebird "^2.1.0"
